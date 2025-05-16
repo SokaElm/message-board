@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { messages } = require("../dataBase");
 
 const newRouter = Router();
 
@@ -8,7 +7,7 @@ newRouter.get("/", (req, res) => {
 });
 
 newRouter.post("/", (req, res) => {
-  messages.push({
+  res.locals.messages.push({
     text: req.body.message,
     user: req.body.user,
     added: new Date(),
