@@ -1,0 +1,18 @@
+<h1><%=title%></h1>
+
+<a href="<%= links[1].href %>">
+  <span> Send New Message</span>
+  <br />
+</a>
+
+<ul>
+  <% for (let i = 0; i < messages.length; i++) { %>
+  <li>
+    From: <%= messages[i].user %>
+    <a href="<%= `${links[2].href}/${i}`%>">
+      <span>Open</span>
+    </a>
+    <br />
+    <% }; %>
+  </li>
+</ul>
