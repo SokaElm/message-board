@@ -14,6 +14,15 @@ app.use("/", indexRouter);
 app.use("/new", newRouter);
 app.use("/message", messageRouter);
 
+app.use((req, res, next) => {
+  res.status(404).render(err.statusCode, { message: err.message });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.statusCode || 500).render("500", { message: err.message });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`My first Express app - listening on port ${PORT}!`);
