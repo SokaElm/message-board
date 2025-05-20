@@ -3,7 +3,7 @@ class CustomNotFoundError extends Error {
     super(message);
 
     if ("captureStackTrace" in Error) {
-      Error.captureStackTrace(this, CustomNotFoundError);
+      Error.captureStackTrace(this);
     }
     this.statusCode = 404;
     this.name = "NotFoundError";
