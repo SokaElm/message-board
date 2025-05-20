@@ -1,8 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("node:path");
-const { messages, links } = require("./dataBase");
 const customNotFoundError = require("./errors/customNotFoundError");
+const db = require("./db/queries");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -13,8 +14,22 @@ const messageRouter = require("./routes/messageRouter");
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  res.locals.messages = messages;
+const links = [
+  { href: "/", text: "Home" },
+  { href: "/new", text: "New messages" },
+  { href: "/message", text: "Message Information" },
+];
+
+let initialMessages = [];
+
+async function getInitialMessage() {
+  initialMessages = await db.getAllMessages();
+}
+
+getInitialMessage();
+
+app.use(async (req, res, next) => {
+  res.locals.messages = initialMessages;
   res.locals.links = links;
   next();
 });
