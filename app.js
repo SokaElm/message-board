@@ -51,7 +51,7 @@ app.use((err, req, res, next) => {
   res.status(status).render("error", { message, status });
 });
 
-const PORT = 5432;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`My first Express app - listening on port ${PORT}!`);
 });
